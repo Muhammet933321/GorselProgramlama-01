@@ -35,5 +35,10 @@ namespace GorselProgramlama_01
             EmanetIslemleriForm form = new EmanetIslemleriForm();
             form.Show();
         }
+
+        private void GirisEkraniForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
