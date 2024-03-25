@@ -31,6 +31,8 @@
             UyeEkleBtn = new Button();
             EmanetEkleBtn = new Button();
             KitapEkleBtn = new Button();
+            ogrencilerDgv = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)ogrencilerDgv).BeginInit();
             SuspendLayout();
             // 
             // UyeEkleBtn
@@ -63,16 +65,30 @@
             KitapEkleBtn.UseVisualStyleBackColor = true;
             KitapEkleBtn.Click += KitapEkleBtn_Click;
             // 
+            // ogrencilerDgv
+            // 
+            ogrencilerDgv.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ogrencilerDgv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            ogrencilerDgv.Location = new Point(250, 65);
+            ogrencilerDgv.Margin = new Padding(3, 4, 3, 4);
+            ogrencilerDgv.Name = "ogrencilerDgv";
+            ogrencilerDgv.RowHeadersWidth = 51;
+            ogrencilerDgv.RowTemplate.Height = 25;
+            ogrencilerDgv.Size = new Size(538, 372);
+            ogrencilerDgv.TabIndex = 8;
+            // 
             // GirisEkraniForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(ogrencilerDgv);
             Controls.Add(KitapEkleBtn);
             Controls.Add(EmanetEkleBtn);
             Controls.Add(UyeEkleBtn);
             Name = "GirisEkraniForm";
             Text = "GirisEkraniForm";
+            ((System.ComponentModel.ISupportInitialize)ogrencilerDgv).EndInit();
             ResumeLayout(false);
         }
 
@@ -80,5 +96,7 @@
         private Button UyeEkleBtn;
         private Button EmanetEkleBtn;
         private Button KitapEkleBtn;
+        private DataGridView ogrencilerDgv;
+        
     }
 }

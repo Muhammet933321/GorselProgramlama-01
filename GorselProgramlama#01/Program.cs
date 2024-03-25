@@ -1,3 +1,4 @@
+using System.Data.SQLite;
 namespace GorselProgramlama_01
 {
     internal static class Program
