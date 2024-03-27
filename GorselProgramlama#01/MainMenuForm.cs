@@ -58,10 +58,6 @@ namespace GorselProgramlama_01
 
         public void WriteAllDataFromJSON()
         {
-            //If I didn't create this options object,
-            //JsonSerializer was returning an empty object when both serializing and deserializing.
-            //That's why I had to create it. ChatGPT couldn't solve this problem,
-            //so I had to find the answer on Stack Overflow.
             File.Delete("Books.json");
             dtBooks.Rows.Clear();
             File.Delete("Members.json");
@@ -69,6 +65,11 @@ namespace GorselProgramlama_01
             File.Delete("Hires.json");
             dtHires.Rows.Clear();
 
+
+            //If I didn't create this options object,
+            //JsonSerializer was returning an empty object when both serializing and deserializing.
+            //That's why I had to create it. ChatGPT couldn't solve this problem :),
+            //so I had to find the answer on Stack Overflow.
             var options = new JsonSerializerOptions()
             {
                 IncludeFields = true,

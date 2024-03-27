@@ -44,25 +44,26 @@ namespace GorselProgramlama_01
             bool IsValuesTrue = false;
             if (isntHaveError)
             {
-                if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
-                {
-                    DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
-                    IsValuesTrue = true;
-                }
-                else
-                {
-                    MessageBox.Show("We Dindn,t Find The Book");
-                    BookIdTxt.Text = "";
-                    IsValuesTrue = false;
-                }
+                
                 if (DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) != null)
                 {
-                    if (IsValuesTrue)
+                    if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
                     {
-                        DataBase.Hires.Add(hire);
-                        this.Close();
-                    }
+                        IsValuesTrue = true;
+                        if (IsValuesTrue)
+                        {
+                            DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
 
+                            DataBase.Hires.Add(hire);
+                            this.Close();
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("We Dindn,t Find The Book");
+                        BookIdTxt.Text = "";
+                        IsValuesTrue = false;
+                    }
                 }
                 else
                 {
