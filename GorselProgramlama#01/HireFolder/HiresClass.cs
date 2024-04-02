@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GorselProgramlama_01
+namespace GorselProgramlama_01.HireFolder
 {
     public class HiresClass
     {
@@ -13,17 +13,17 @@ namespace GorselProgramlama_01
         public DateTime HireTime;
         public DateTime ReturnTime;
         private readonly TimeSpan MaxHireTime = new TimeSpan(14, 0, 0, 0);
-        public HiresClass() 
+        public HiresClass()
         {
-            this.HireTime = DateTime.Now;
-            this.ReturnTime = HireTime + MaxHireTime;
+            HireTime = DateTime.Now;
+            ReturnTime = HireTime + MaxHireTime;
         }
-        public HiresClass(int UserId , int BookId) 
-        { 
+        public HiresClass(int UserId, int BookId)
+        {
             this.UserId = UserId;
             this.BookId = BookId;
-            this.HireTime = DateTime.Now;
-            this.ReturnTime = HireTime + MaxHireTime;
+            HireTime = DateTime.Now;
+            ReturnTime = HireTime + MaxHireTime;
         }
     }
 }

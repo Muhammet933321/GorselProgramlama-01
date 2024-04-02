@@ -10,6 +10,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GorselProgramlama_01.BookFolder;
+using GorselProgramlama_01.HireFolder;
+using GorselProgramlama_01.MemberFolder;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace GorselProgramlama_01
@@ -29,9 +32,9 @@ namespace GorselProgramlama_01
         }
         public void ShowInBooksDataTable(BookClass book)
         {
-            if(book.State == 0)
-            dtBooks.Rows.Add(new object[]
-                { book.ID,
+            if (book.State == 0)
+                dtBooks.Rows.Add(new object[]
+                    { book.ID,
                   book.BookName,
                   book.NumberOfPages,
                   book.WriterName,
@@ -116,7 +119,7 @@ namespace GorselProgramlama_01
                 string dataBooks = File.ReadAllText("Books.json");
                 if (!string.IsNullOrEmpty(dataBooks))
                 {
-                    List<BookClass> AllBooks = JsonSerializer.Deserialize<List<BookClass>>(dataBooks,options);
+                    List<BookClass> AllBooks = JsonSerializer.Deserialize<List<BookClass>>(dataBooks, options);
                     foreach (BookClass book in AllBooks)
                     {
                         DataBase.Books.Add(book);
@@ -124,12 +127,12 @@ namespace GorselProgramlama_01
                     }
 
                 }
-                    
+
             }
-            if(File.Exists("Members.json"))
+            if (File.Exists("Members.json"))
             {
                 string dataMembers = File.ReadAllText("Members.json");
-                if(!string.IsNullOrEmpty(dataMembers))
+                if (!string.IsNullOrEmpty(dataMembers))
                 {
                     List<MemberClass> AllMembers = JsonSerializer.Deserialize<List<MemberClass>>(dataMembers, options);
                     foreach (MemberClass member in AllMembers)
@@ -139,7 +142,7 @@ namespace GorselProgramlama_01
                     }
 
                 }
-                
+
 
             }
             if (File.Exists("Hires.json"))
@@ -154,11 +157,11 @@ namespace GorselProgramlama_01
                         ShowInHiresDataTable(hire);
                     }
                 }
-                    
+
             }
 
-            
-            
+
+
         }
         public MainMenuForm()
         {
@@ -184,11 +187,11 @@ namespace GorselProgramlama_01
             dtHires.Columns.Add("End Return Time:");
             HireDataTable.DataSource = dtHires;
             ReadAllDataFromJSON();
-            
+
 
 
         }
-        
+
 
         private void UyeEkle_Click(object sender, EventArgs e)
         {
@@ -207,7 +210,7 @@ namespace GorselProgramlama_01
             HireManagerForm form = new HireManagerForm();
             form.Show();
         }
-        
+
 
         private void loadDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -216,7 +219,7 @@ namespace GorselProgramlama_01
             dtMembers.Clear();
             ReadAllDataFromJSON();
         }
-        
+
         private void saveDataToolStripMenuItem_Click(object sender, EventArgs e)
         {
             WriteAllDataFromJSON();
@@ -225,6 +228,41 @@ namespace GorselProgramlama_01
         private void MainMenuForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void EditBookBtn_Click(object sender, EventArgs e)
+        {
+            EditBookForm form = new EditBookForm();
+            form.Show();
+        }
+
+        private void toolStripDropDownButton1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void RemoveBookBtn_Click(object sender, EventArgs e)
+        {
+            RemoveBookForm form = new RemoveBookForm();
+            form.Show();
+        }
+
+        private void EditMemberBtn_Click(object sender, EventArgs e)
+        {
+            EditMemberForm form = new EditMemberForm();
+            form.Show();
+        }
+
+        private void RemoveMemberBtn_Click(object sender, EventArgs e)
+        {
+            RemoveMemberForm form = new RemoveMemberForm();
+            form.Show();
+        }
+
+        private void ReturnBtn_Click(object sender, EventArgs e)
+        {
+            ReturnBookForm form = new ReturnBookForm();
+            form.Show();
         }
     }
 }

@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GorselProgramlama_01
+namespace GorselProgramlama_01.BookFolder
 {
     public class BookClass
     {
-        public BookClass(int Id , string name , int NumberOfPages , string WriterName) 
+        public BookClass(int Id, string name, int NumberOfPages, string WriterName)
         {
-            this.ID = Id;
-            this.BookName = name;
+            ID = Id;
+            BookName = name;
             this.NumberOfPages = NumberOfPages;
             this.WriterName = WriterName;
-            this.State = 0;
+            State = 0;
         }
         public BookClass() { }
         public int ID;

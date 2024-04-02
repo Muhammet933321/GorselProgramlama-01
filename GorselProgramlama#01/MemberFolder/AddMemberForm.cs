@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GorselProgramlama_01.MemberFolder;
 
 namespace GorselProgramlama_01
 {
     public partial class AddMemberForm : Form
     {
-        private int Converter;
         public AddMemberForm()
         {
             InitializeComponent();

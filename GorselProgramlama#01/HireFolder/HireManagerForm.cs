@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using GorselProgramlama_01.HireFolder;
 
 namespace GorselProgramlama_01
 {
