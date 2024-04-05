@@ -10,10 +10,12 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
 using GorselProgramlama_01.BookFolder;
 using GorselProgramlama_01.HireFolder;
 using GorselProgramlama_01.MemberFolder;
 using static System.Reflection.Metadata.BlobBuilder;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace GorselProgramlama_01
 {
@@ -22,6 +24,39 @@ namespace GorselProgramlama_01
         private DataTable dtMembers;
         private DataTable dtBooks;
         private DataTable dtHires;
+        public MainMenuForm()
+        {
+            InitializeComponent();
+            SQLManager.Conncet();
+            BaseTable();
+            //ReadAllDataFromJSON();
+            ReadAllDataFromSQL();
+
+
+        }
+        private void BaseTable()
+        {
+            dtMembers = new DataTable();
+            dtMembers.Columns.Add("Member Id:");
+            dtMembers.Columns.Add("Member Name:");
+            dtMembers.Columns.Add("Member Mail:");
+            MemberDataTable.DataSource = dtMembers;
+
+            dtBooks = new DataTable();
+            dtBooks.Columns.Add("Book Id:");
+            dtBooks.Columns.Add("Book Name:");
+            dtBooks.Columns.Add("Number Of Pages:");
+            dtBooks.Columns.Add("Writer Name:");
+            dtBooks.Columns.Add("Book State:");
+            BookDataTable.DataSource = dtBooks;
+
+            dtHires = new DataTable();
+            dtHires.Columns.Add("Hired User Id:");
+            dtHires.Columns.Add("Hired Book Id:");
+            dtHires.Columns.Add("Hired Time :");
+            dtHires.Columns.Add("End Return Time:");
+            HireDataTable.DataSource = dtHires;
+        }
         public void ShowInMembersDataTable(MemberClass member)
         {
             dtMembers.Rows.Add(new object[]
@@ -47,7 +82,6 @@ namespace GorselProgramlama_01
                   book.WriterName,
                   "Hired"});
         }
-
         public void ShowInHiresDataTable(HiresClass hire)
         {
             string DateTime = $"{hire.HireTime.Day}.{hire.HireTime.Month}.{hire.HireTime.Year}";
@@ -163,33 +197,42 @@ namespace GorselProgramlama_01
 
 
         }
-        public MainMenuForm()
+        private void ReadAllDataFromSQL()
         {
-            InitializeComponent();
-            dtMembers = new DataTable();
-            dtMembers.Columns.Add("Member Id:");
-            dtMembers.Columns.Add("Member Name:");
-            dtMembers.Columns.Add("Member Mail:");
-            MemberDataTable.DataSource = dtMembers;
-
-            dtBooks = new DataTable();
-            dtBooks.Columns.Add("Book Id:");
-            dtBooks.Columns.Add("Book Name:");
-            dtBooks.Columns.Add("Number Of Pages:");
-            dtBooks.Columns.Add("Writer Name:");
-            dtBooks.Columns.Add("Book State:");
-            BookDataTable.DataSource = dtBooks;
-
-            dtHires = new DataTable();
-            dtHires.Columns.Add("Hired User Id:");
-            dtHires.Columns.Add("Hired Book Id:");
-            dtHires.Columns.Add("Hired Time :");
-            dtHires.Columns.Add("End Return Time:");
-            HireDataTable.DataSource = dtHires;
-            ReadAllDataFromJSON();
-
-
-
+            SQLiteDataReader reader = SQLManager.GetDataReaderForBook();
+            while (reader.Read())
+            {
+                BookClass book = new BookClass(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetInt32(2),
+                    reader.GetString(3),
+                    reader.GetInt32(4)
+                    );
+                DataBase.Books.Add(book);
+                ShowInBooksDataTable(book);
+            }
+            reader = SQLManager.GetDataReaderForMember();
+            while (reader.Read())
+            {
+                MemberClass member = new MemberClass(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2)
+                    );
+                DataBase.Members.Add(member);
+                ShowInMembersDataTable(member);
+            }
+            reader = SQLManager.GetDataReaderForHires();
+            while (reader.Read())
+            {
+                HiresClass hire = new HiresClass(
+                    reader.GetInt32(0),
+                    reader.GetInt32(1)
+                    );
+                DataBase.Hires.Add(hire);
+                ShowInHiresDataTable(hire);
+            }
         }
 
 
@@ -217,7 +260,7 @@ namespace GorselProgramlama_01
             dtBooks.Clear();
             dtHires.Clear();
             dtMembers.Clear();
-            ReadAllDataFromJSON();
+            ReadAllDataFromSQL();
         }
 
         private void saveDataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -225,9 +268,9 @@ namespace GorselProgramlama_01
             WriteAllDataFromJSON();
         }
 
-        private void MainMenuForm_Load(object sender, EventArgs e)
+        private void MainMenu_FormClosing(object sender, FormClosingEventArgs e)
         {
-
+            SQLManager.DisConnect();
         }
 
         private void EditBookBtn_Click(object sender, EventArgs e)

@@ -35,7 +35,6 @@
             toolStrip1 = new ToolStrip();
             toolStripDropDownButton1 = new ToolStripDropDownButton();
             loadDataToolStripMenuItem = new ToolStripMenuItem();
-            saveDataToolStripMenuItem = new ToolStripMenuItem();
             BookDataTable = new DataGridView();
             MemberDataTable = new DataGridView();
             HireDataTable = new DataGridView();
@@ -93,7 +92,7 @@
             // toolStripDropDownButton1
             // 
             toolStripDropDownButton1.DisplayStyle = ToolStripItemDisplayStyle.Text;
-            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { loadDataToolStripMenuItem, saveDataToolStripMenuItem });
+            toolStripDropDownButton1.DropDownItems.AddRange(new ToolStripItem[] { loadDataToolStripMenuItem });
             toolStripDropDownButton1.Image = (Image)resources.GetObject("toolStripDropDownButton1.Image");
             toolStripDropDownButton1.ImageTransparentColor = Color.Magenta;
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
@@ -104,16 +103,9 @@
             // loadDataToolStripMenuItem
             // 
             loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
-            loadDataToolStripMenuItem.Size = new Size(161, 26);
+            loadDataToolStripMenuItem.Size = new Size(224, 26);
             loadDataToolStripMenuItem.Text = "Load Data";
             loadDataToolStripMenuItem.Click += loadDataToolStripMenuItem_Click;
-            // 
-            // saveDataToolStripMenuItem
-            // 
-            saveDataToolStripMenuItem.Name = "saveDataToolStripMenuItem";
-            saveDataToolStripMenuItem.Size = new Size(161, 26);
-            saveDataToolStripMenuItem.Text = "Save Data";
-            saveDataToolStripMenuItem.Click += saveDataToolStripMenuItem_Click;
             // 
             // BookDataTable
             // 
@@ -211,7 +203,7 @@
             Controls.Add(AddMemberBtn);
             Name = "MainMenuForm";
             Text = "GirisEkraniForm";
-            Load += MainMenuForm_Load;
+            FormClosing += MainMenu_FormClosing;
             toolStrip1.ResumeLayout(false);
             toolStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)BookDataTable).EndInit();
@@ -228,7 +220,6 @@
         private ToolStrip toolStrip1;
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem loadDataToolStripMenuItem;
-        private ToolStripMenuItem saveDataToolStripMenuItem;
         private DataGridView BookDataTable;
         private DataGridView MemberDataTable;
         private DataGridView HireDataTable;

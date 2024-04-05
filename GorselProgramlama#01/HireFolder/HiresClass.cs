@@ -25,5 +25,6 @@ namespace GorselProgramlama_01.HireFolder
             HireTime = DateTime.Now;
             ReturnTime = HireTime + MaxHireTime;
         }
+        
     }
 }

@@ -16,6 +16,14 @@ namespace GorselProgramlama_01.BookFolder
             this.WriterName = WriterName;
             State = 0;
         }
+        public BookClass(int Id, string name, int NumberOfPages, string WriterName,int State)
+        {
+            ID = Id;
+            BookName = name;
+            this.NumberOfPages = NumberOfPages;
+            this.WriterName = WriterName;
+            this.State = State;
+        }
         public BookClass() { }
         public int ID;
         public string BookName;

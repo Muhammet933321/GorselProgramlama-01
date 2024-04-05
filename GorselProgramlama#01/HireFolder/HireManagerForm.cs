@@ -53,10 +53,21 @@ namespace GorselProgramlama_01
                         IsValuesTrue = true;
                         if (IsValuesTrue)
                         {
-                            DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
+                            if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State == 0)
+                            {
+                                DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
 
-                            DataBase.Hires.Add(hire);
-                            this.Close();
+                                DataBase.Hires.Add(hire);
+                                SQLManager.AddHire(hire);
+                                this.Close();
+                            }
+                            else
+                            {
+                                MessageBox.Show("This Book Is Already Hired");
+                                BookIdTxt.Text = "";
+                                IsValuesTrue = false;
+                            }
+                            
                         }
                     }
                     else

@@ -19,7 +19,7 @@ namespace GorselProgramlama_01
         {
             InitializeComponent();
         }
-
+        MemberClass memberOld;
         private void FindMemberBtn_Click(object sender, EventArgs e)
         {
             int sayi;
@@ -37,11 +37,11 @@ namespace GorselProgramlama_01
             {
                 if (DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) != null)
                 {
-                    MemberClass member = DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text));
-                    MemberIDTxtNew.Text = member.ID.ToString();
-                    MemberNameTxt.Text = member.Name;
-                    MemberMailTxt.Text = member.Mail;
-                    nowMemberId = member.ID;
+                    memberOld = DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text));
+                    MemberIDTxtNew.Text = memberOld.ID.ToString();
+                    MemberNameTxt.Text = memberOld.Name;
+                    MemberMailTxt.Text = memberOld.Mail;
+                    nowMemberId = memberOld.ID;
                 }
                 else
                 {
@@ -82,12 +82,17 @@ namespace GorselProgramlama_01
                         if (nowMemberId == Convert.ToInt32(MemberIDTxtNew.Text) || 
                             DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIDTxtNew.Text)) == null)
                         {
+                            MemberClass member = new MemberClass(
+                                Convert.ToInt32(MemberIDTxtNew.Text),
+                                MemberNameTxt.Text,
+                                MemberMailTxt.Text);
                             DataBase.MemberEdit(
                                 Convert.ToInt32(MemberIdTxt.Text),
                                 Convert.ToInt32(MemberIDTxtNew.Text),
                                 MemberNameTxt.Text,
                                 MemberMailTxt.Text
                                 );
+                            SQLManager.EditMember(nowMemberId,member);
                             this.Close();
                         }
                         else

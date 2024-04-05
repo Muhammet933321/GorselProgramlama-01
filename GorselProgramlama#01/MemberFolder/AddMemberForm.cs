@@ -38,6 +38,7 @@ namespace GorselProgramlama_01
                 if (DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) == null)
                 {
                     DataBase.Members.Add(member);
+                    SQLManager.AddMember(member);
                     this.Close();
                 }
                 else

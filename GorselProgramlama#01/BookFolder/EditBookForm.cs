@@ -18,7 +18,7 @@ namespace GorselProgramlama_01
         {
             InitializeComponent();
         }
-
+        BookClass bookOld;
         private void FindBookBtn_Click(object sender, EventArgs e)
         {
             int sayi;
@@ -29,12 +29,12 @@ namespace GorselProgramlama_01
             {
                 if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
                 {
-                    BookClass book = DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text));
-                    BookNameTxtNew.Text = book.BookName;
-                    BookWriterTxtNew.Text = book.WriterName;
-                    NumberOfPagesTxtNew.Text = book.NumberOfPages.ToString();
-                    BookIDTxtNew.Text = book.ID.ToString();
-                    nowBookId = book.ID;
+                    bookOld = DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text));
+                    BookNameTxtNew.Text = bookOld.BookName;
+                    BookWriterTxtNew.Text = bookOld.WriterName;
+                    NumberOfPagesTxtNew.Text = bookOld.NumberOfPages.ToString();
+                    BookIDTxtNew.Text = bookOld.ID.ToString();
+                    nowBookId = bookOld.ID;
                 }
                 else
                 {
@@ -67,13 +67,14 @@ namespace GorselProgramlama_01
                     if (nowBookId == Convert.ToInt32(BookIDTxtNew.Text) || 
                         DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIDTxtNew.Text)) == null )
                     {
-                        DataBase.BookEdit(
-                            Convert.ToInt32(BookIdTxt.Text),
+                        BookClass book = new BookClass(
                             Convert.ToInt32(BookIDTxtNew.Text),
                             BookNameTxtNew.Text,
+                            Convert.ToInt32(NumberOfPagesTxtNew.Text),
                             BookWriterTxtNew.Text,
-                            Convert.ToInt32(NumberOfPagesTxtNew.Text)
-                            );
+                            bookOld.State
+                        );
+                        SQLManager.EditBook(nowBookId, book);
                         this.Close();
                     }
                     else

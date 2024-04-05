@@ -56,6 +56,7 @@ namespace GorselProgramlama_01
                 {
 
                     DataBase.Books.Add(book);
+                    SQLManager.AddBook(book);
                     this.Close();
 
                 }
