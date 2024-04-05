@@ -57,6 +57,7 @@ namespace GorselProgramlama_01
         {
 
             DataBase.RemoveBook(Convert.ToInt32(BookIdTxt.Text));
+            SQLManager.RemoveBook(Convert.ToInt32(BookIdTxt.Text));
             this.Close();
         }
     }

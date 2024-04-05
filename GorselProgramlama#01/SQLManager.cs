@@ -61,41 +61,119 @@ namespace GorselProgramlama_01
 
         public static SQLiteDataReader GetDataReaderForBook()
         {
-            SQLiteCommand command = new SQLiteCommand();
-            command.Connection = baglanti;
-            command.CommandText = "SELECT * FROM Book";
-            SQLiteDataReader okuyucu = command.ExecuteReader();
-            return okuyucu;
+            try
+            {
+                SQLiteCommand command1 = new SQLiteCommand();
+                command1.Connection = baglanti;
+                command1.CommandText = "SELECT * FROM Book";
+                SQLiteDataReader okuyucu1 = command1.ExecuteReader();
+                return okuyucu1;
+            }
+            catch 
+            {
+                string connectionString = $"Data Source=BookLibrary.db;Version=3;";
+
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Books (BookID INTEGER PRIMARY KEY AUTOINCREMENT, BookName TEXT,NumberOfPages INTEGER, WriterName TEXT,State INTEGER)";
+                    using (SQLiteCommand command2 = new SQLiteCommand(createTableQuery, connection))
+                    {
+                        command2.ExecuteNonQuery();
+                    }
+                }
+
+            }
+
+            SQLiteCommand command3 = new SQLiteCommand();
+            command3.Connection = baglanti;
+            command3.CommandText = "SELECT * FROM Book";
+            SQLiteDataReader okuyucu2 = command3.ExecuteReader();
+            return okuyucu2;
+
         }
         public static SQLiteDataReader GetDataReaderForMember()
         {
-            SQLiteCommand command = new SQLiteCommand();
-            command.Connection = baglanti;
-            command.CommandText = "SELECT * FROM Member";
-            SQLiteDataReader okuyucu = command.ExecuteReader();
-            return okuyucu;
+            
+
+            try
+            {
+                SQLiteCommand command1 = new SQLiteCommand();
+                command1.Connection = baglanti;
+                command1.CommandText = "SELECT * FROM Member";
+                SQLiteDataReader okuyucu1 = command1.ExecuteReader();
+                return okuyucu1;
+            }
+            catch
+            {
+                string connectionString = $"Data Source=BookLibrary.db;Version=3;";
+
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Member (MemberID INTEGER PRIMARY KEY AUTOINCREMENT, MemberName TEXT,MemberMail TEXT)";
+                    using (SQLiteCommand command2 = new SQLiteCommand(createTableQuery, connection))
+                    {
+                        command2.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            SQLiteCommand command3 = new SQLiteCommand();
+            command3.Connection = baglanti;
+            command3.CommandText = "SELECT * FROM Member";
+            SQLiteDataReader okuyucu2 = command3.ExecuteReader();
+            return okuyucu2;
         }
         public static SQLiteDataReader GetDataReaderForHires()
         {
-            SQLiteCommand command = new SQLiteCommand();
-            command.Connection = baglanti;
-            command.CommandText = "SELECT * FROM Hire";
-            SQLiteDataReader okuyucu = command.ExecuteReader();
-            return okuyucu;
+            
+            try
+            {
+                SQLiteCommand command1 = new SQLiteCommand();
+                command1.Connection = baglanti;
+                command1.CommandText = "SELECT * FROM Hire";
+                SQLiteDataReader okuyucu1 = command1.ExecuteReader();
+                return okuyucu1;
+            }
+            catch
+            {
+                string connectionString = $"Data Source=BookLibrary.db;Version=3;";
+
+                using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+                {
+                    connection.Open();
+
+                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Hire (MemberID INTEGER, BookID INTEGER)";
+                    using (SQLiteCommand command2 = new SQLiteCommand(createTableQuery, connection))
+                    {
+                        command2.ExecuteNonQuery();
+                    }
+                }
+
+            }
+            SQLiteCommand command3 = new SQLiteCommand();
+            command3.Connection = baglanti;
+            command3.CommandText = "SELECT * FROM Hire";
+            SQLiteDataReader okuyucu2 = command3.ExecuteReader();
+            return okuyucu2;
+
         }
 
         
-        public static void RemoveBook(BookClass book)
+        public static void RemoveBook(int bookID)
         {
-             int id = book.ID;
+             int id = bookID;
              SQLiteCommand komut = new SQLiteCommand();
              komut.Connection = baglanti;
              komut.CommandText = $"DELETE FROM Book WHERE BookID = {id}";
              int eklenen_sayisi = komut.ExecuteNonQuery();
         }
-        public static void RemoveMember(MemberClass member)
+        public static void RemoveMember(int memberID)
         {
-            int id = member.ID;
+            int id = memberID;
             SQLiteCommand komut = new SQLiteCommand();
             komut.Connection = baglanti;
             komut.CommandText = $"DELETE FROM Member WHERE MemberID = {id}";
