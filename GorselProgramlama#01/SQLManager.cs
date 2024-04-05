@@ -71,13 +71,13 @@ namespace GorselProgramlama_01
             }
             catch 
             {
-                string connectionString = $"Data Source=BookLibrary.db;Version=3;";
+                string connectionString = $"Data Source=LibraryDataBaseSQL.db;Version=3;";
 
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
 
-                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Books (BookID INTEGER PRIMARY KEY AUTOINCREMENT, BookName TEXT,NumberOfPages INTEGER, WriterName TEXT,State INTEGER)";
+                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Book (BookID INTEGER, BookName TEXT,NumberOfPages INTEGER, WriterName TEXT,State INTEGER)";
                     using (SQLiteCommand command2 = new SQLiteCommand(createTableQuery, connection))
                     {
                         command2.ExecuteNonQuery();
@@ -107,13 +107,13 @@ namespace GorselProgramlama_01
             }
             catch
             {
-                string connectionString = $"Data Source=BookLibrary.db;Version=3;";
+                string connectionString = $"Data Source=LibraryDataBaseSQL.db;Version=3;";
 
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
                     connection.Open();
 
-                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Member (MemberID INTEGER PRIMARY KEY AUTOINCREMENT, MemberName TEXT,MemberMail TEXT)";
+                    string createTableQuery = "CREATE TABLE IF NOT EXISTS Member (MemberID INTEGER, MemberName TEXT,MemberMail TEXT)";
                     using (SQLiteCommand command2 = new SQLiteCommand(createTableQuery, connection))
                     {
                         command2.ExecuteNonQuery();
@@ -140,7 +140,7 @@ namespace GorselProgramlama_01
             }
             catch
             {
-                string connectionString = $"Data Source=BookLibrary.db;Version=3;";
+                string connectionString = $"Data Source=LibraryDataBaseSQL.db;Version=3;";
 
                 using (SQLiteConnection connection = new SQLiteConnection(connectionString))
                 {
