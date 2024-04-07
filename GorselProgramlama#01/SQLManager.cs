@@ -23,18 +23,14 @@ namespace GorselProgramlama_01
             {
                 baglanti = new SQLiteConnection(baglanti_metni);
                 baglanti.Open();
-
-                //MessageBox.Show("SQLite Bağlantısı kuruldu",
-                //               "Bağlantı sağlandı",
-                //               MessageBoxButtons.OK,
-                //               MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("SQLite Bağlantısı kurulamadı",
-                                "Bağlantı hatası");
+                                "Bağlantı hatası",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
             }
-
         }
         public static void DisConnect()
         {
@@ -43,11 +39,6 @@ namespace GorselProgramlama_01
                 try
                 {
                     baglanti.Close();
-
-                    //MessageBox.Show("SQLite Bağlantısı başarıyla kapatıldı.",
-                    //               "Bağlantı sonlandırıldı",
-                    //               MessageBoxButtons.OK,
-                    //               MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
