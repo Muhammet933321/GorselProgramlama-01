@@ -1,6 +1,7 @@
 ﻿using GorselProgramlama_01.BookFolder;
 using GorselProgramlama_01.HireFolder;
 using GorselProgramlama_01.MemberFolder;
+using System.CodeDom;
 using System.Xml.Linq;
 
 namespace GorselProgramlama_01
@@ -22,7 +23,15 @@ namespace GorselProgramlama_01
         public static void RemoveBook(int ID)
         {
             var book = Books.Find(x => x.ID == ID);
-            Books.Remove(book);
+            if (book.State == 0)
+            {
+                Books.Remove(book);
+            }
+            else
+            {
+                MessageBox.Show("Kiralanmis bir kitabi silemezsiniz !");
+                throw new Exception();
+            }
         }
         public static void MemberEdit(int ID,int newID, string name, string Mail)
         {
@@ -38,10 +47,18 @@ namespace GorselProgramlama_01
         }
         public static void ReturnBook(int ID)
         {
-            var hire = Hires.Find(x => x.BookId == ID);
-            Hires.Remove(hire);
-            var book = Books.Find(x => x.ID == hire.BookId);
-            book.State = 0;
+            try
+            {
+                var hire = Hires.Find(x => x.BookId == ID);
+                var book = Books.Find(x => x.ID == hire.BookId);
+                Hires.Remove(hire);
+                book.State = 0;
+            }
+            catch
+            {
+                MessageBox.Show("Birseyler Yanlis Gitti Veriler Silinemedi !");
+                throw new Exception();
+            }
         }
 
 

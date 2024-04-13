@@ -55,8 +55,6 @@ namespace GorselProgramlama_01
 
         private void RemoveBookBtn_Click(object sender, EventArgs e)
         {
-
-            DataBase.RemoveBook(Convert.ToInt32(BookIdTxt.Text));
             SQLManager.RemoveBook(Convert.ToInt32(BookIdTxt.Text));
             this.Close();
         }

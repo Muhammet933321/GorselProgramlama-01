@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace GorselProgramlama_01
 {
@@ -153,33 +154,42 @@ namespace GorselProgramlama_01
         
         public static void RemoveBook(int bookID)
         {
-             int id = bookID;
-             SQLiteCommand komut = new SQLiteCommand();
-             komut.Connection = baglanti;
-             komut.CommandText = $"DELETE FROM Book WHERE BookID = {id}";
-             int eklenen_sayisi = komut.ExecuteNonQuery();
-             DataBase.RemoveBook(id);
+            try
+            {
+                int id = bookID;
+                DataBase.RemoveBook(id);
+                SQLiteCommand komut = new SQLiteCommand();
+                komut.Connection = baglanti;
+                komut.CommandText = $"DELETE FROM Book WHERE BookID = {id}";
+                int eklenen_sayisi = komut.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+            }
+             
         }
         public static void RemoveMember(int memberID)
         {
             int id = memberID;
+            DataBase.RemoveMember(id);
             SQLiteCommand komut = new SQLiteCommand();
             komut.Connection = baglanti;
             komut.CommandText = $"DELETE FROM Member WHERE MemberID = {id}";
             int eklenen_sayisi = komut.ExecuteNonQuery();
-            DataBase.RemoveMember(id);
+                
         }
         public static void RemoveHire(int BookID)
         {
+            
             int id = BookID;
             int zero = 0;
+            DataBase.ReturnBook(id);
             SQLiteCommand komut = new SQLiteCommand();
             komut.Connection = baglanti;
             komut.CommandText = $"UPDATE Book SET State=\"{zero}\" WHERE BookID={id}";
             komut.ExecuteNonQuery();
             komut.CommandText = $"DELETE FROM Hire WHERE BookID = {id}";
             int eklenen_sayisi = komut.ExecuteNonQuery();
-            DataBase.ReturnBook(id);
         }
 
         public static void AddBook(BookClass book)
@@ -207,25 +217,30 @@ namespace GorselProgramlama_01
             komut.Connection = baglanti;
             komut.CommandText = $"UPDATE Book SET State=\"{one}\" WHERE BookID={hire.BookId}";
             komut.ExecuteNonQuery();
-            komut.CommandText = $"INSERT INTO Hire (MemberID,BookID) VALUES(\"{hire.UserId}\", \"{hire.BookId}\")";
+            komut.CommandText = $"INSERT INTO Hire (MemberID,BookID) " +
+                $"VALUES(\"{hire.UserId}\", \"{hire.BookId}\")";
             komut.ExecuteNonQuery();
             DataBase.Hires.Add(hire);
         }
 
         public static void EditBook(int oldID, BookClass book)
         {
-             SQLiteCommand komut = new SQLiteCommand();
-             komut.Connection = baglanti;
-             komut.CommandText = $"UPDATE Book SET BookID=\"{book.ID}\",BookName=\"{book.BookName}\",NumberOfPages=\"{book.NumberOfPages}\",WriterName=\"{book.WriterName}\",State=\"{book.State}\" WHERE BookID={oldID}";
-             int eklenen_sayisi = komut.ExecuteNonQuery();
+            SQLiteCommand komut = new SQLiteCommand();
+            komut.Connection = baglanti;
+            komut.CommandText = $"UPDATE Book SET BookID=\"{book.ID}\",BookName=\"" +
+                $"{book.BookName}\",NumberOfPages=\"{book.NumberOfPages}\"" +
+                $",WriterName=\"{book.WriterName}\",State=\"{book.State}\" WHERE BookID={oldID}";
+            komut.ExecuteNonQuery();
             DataBase.BookEdit(oldID,book.ID,book.BookName,book.WriterName,book.NumberOfPages);
         }
         public static void EditMember(int oldID, MemberClass member)
         {
             SQLiteCommand komut = new SQLiteCommand();
             komut.Connection = baglanti;
-            komut.CommandText = $"UPDATE Member SET MemberID=\"{member.ID}\",MemberName=\"{member.Name}\",MemberMail=\"{member.Mail}\" WHERE MemberID={oldID}";
-            int eklenen_sayisi = komut.ExecuteNonQuery();
+            komut.CommandText = $"UPDATE Member SET MemberID=\"" +
+                $"{member.ID}\",MemberName=\"{member.Name}\"" +
+                $",MemberMail=\"{member.Mail}\" WHERE MemberID={oldID}";
+            komut.ExecuteNonQuery();
             DataBase.MemberEdit(oldID,member.ID,member.Name,member.Mail);
         }
 

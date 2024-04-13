@@ -21,7 +21,6 @@ namespace GorselProgramlama_01
 
         private void RemoveMemberBtn_Click(object sender, EventArgs e)
         {
-            DataBase.RemoveMember(nowMemberId);
             SQLManager.RemoveMember(nowMemberId);
             this.Close();
         }

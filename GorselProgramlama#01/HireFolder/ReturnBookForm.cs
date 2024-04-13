@@ -64,8 +64,6 @@ namespace GorselProgramlama_01
             {
                 if (DataBase.Hires.FirstOrDefault(o => o.BookId == Convert.ToInt32(BookIdTxt.Text)) != null)
                 {
-                    
-                    DataBase.ReturnBook(sayi);
                     SQLManager.RemoveHire(sayi);
                     this.Close();
                 }
