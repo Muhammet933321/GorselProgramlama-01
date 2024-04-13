@@ -14,8 +14,17 @@ namespace GorselProgramlama_01
     public partial class EditBookForm : Form
     {
         int nowBookId;
+        MainMenuForm mainForm;
         public EditBookForm()
         {
+            InitializeComponent();
+        }
+        public EditBookForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
             InitializeComponent();
         }
         BookClass bookOld;
@@ -27,9 +36,9 @@ namespace GorselProgramlama_01
             else{   isWrong = true; }
             if (!isWrong)
             {
-                if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
+                if (DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
                 {
-                    bookOld = DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text));
+                    bookOld = DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text));
                     BookNameTxtNew.Text = bookOld.BookName;
                     BookWriterTxtNew.Text = bookOld.WriterName;
                     NumberOfPagesTxtNew.Text = bookOld.NumberOfPages.ToString();
@@ -62,10 +71,10 @@ namespace GorselProgramlama_01
             }
             if (!isWrong)
             {
-                if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(nowBookId)) != null)
+                if (DataBase.Books.Find(o => o.ID == Convert.ToInt32(nowBookId)) != null)
                 {
                     if (nowBookId == Convert.ToInt32(BookIDTxtNew.Text) || 
-                        DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIDTxtNew.Text)) == null )
+                        DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIDTxtNew.Text)) == null )
                     {
                         BookClass book = new BookClass(
                             Convert.ToInt32(BookIDTxtNew.Text),
@@ -75,6 +84,7 @@ namespace GorselProgramlama_01
                             bookOld.State
                         );
                         SQLManager.EditBook(nowBookId, book);
+                        mainForm.ShowInBooksDataTable();
                         this.Close();
                     }
                     else

@@ -13,8 +13,17 @@ namespace GorselProgramlama_01
 {
     public partial class AddMemberForm : Form
     {
+        MainMenuForm mainForm;
         public AddMemberForm()
         {
+            InitializeComponent();
+        }
+        public AddMemberForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
             InitializeComponent();
         }
 
@@ -35,10 +44,10 @@ namespace GorselProgramlama_01
             member.Mail = MemberMailTxt.Text;
             if (isntHaveError)
             {
-                if (DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) == null)
+                if (DataBase.Members.Find(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) == null)
                 {
-                    DataBase.Members.Add(member);
                     SQLManager.AddMember(member);
+                    mainForm.ShowInMembersDataTable();
                     this.Close();
                 }
                 else

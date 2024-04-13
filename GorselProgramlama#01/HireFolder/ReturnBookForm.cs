@@ -16,12 +16,21 @@ namespace GorselProgramlama_01
 {
     public partial class ReturnBookForm : Form
     {
+        MainMenuForm mainForm;
         public ReturnBookForm()
         {
             InitializeComponent();
         }
-
-        private void FindBookBtn_Click(object sender, EventArgs e)
+        public ReturnBookForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
+            InitializeComponent();
+        }
+        
+    private void FindBookBtn_Click(object sender, EventArgs e)
         {
             int sayi;
             bool isWrong;
@@ -35,12 +44,12 @@ namespace GorselProgramlama_01
                 isWrong = true;
             }
             if (!isWrong)
-                if (DataBase.Hires.FirstOrDefault(o => o.BookId == Convert.ToInt32(BookIdTxt.Text)) != null)
+                if (DataBase.Hires.Find(o => o.BookId == Convert.ToInt32(BookIdTxt.Text)) != null)
                 {
 
-                    HiresClass hire = DataBase.Hires.FirstOrDefault(o => o.BookId == Convert.ToInt32(BookIdTxt.Text));
+                    HiresClass hire = DataBase.Hires.Find(o => o.BookId == Convert.ToInt32(BookIdTxt.Text));
                     int MemberId = hire.UserId;
-                    MemberClass member = DataBase.Members.FirstOrDefault(o => o.ID == MemberId);
+                    MemberClass member = DataBase.Members.Find(o => o.ID == MemberId);
                     BookIDTxtNew.Text = hire.BookId.ToString();
                     BookIDTxtNew.Text = hire.BookId.ToString();
                     MemberIdTxtNew.Text = MemberId.ToString();
@@ -62,9 +71,10 @@ namespace GorselProgramlama_01
             int sayi;
             if (int.TryParse(BookIdTxt.Text, out sayi))
             {
-                if (DataBase.Hires.FirstOrDefault(o => o.BookId == Convert.ToInt32(BookIdTxt.Text)) != null)
+                if (DataBase.Hires.Find(o => o.BookId == Convert.ToInt32(BookIdTxt.Text)) != null)
                 {
                     SQLManager.RemoveHire(sayi);
+                    mainForm.ShowInHiresDataTable();
                     this.Close();
                 }
                 else

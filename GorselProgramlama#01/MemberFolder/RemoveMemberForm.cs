@@ -14,14 +14,24 @@ namespace GorselProgramlama_01
     public partial class RemoveMemberForm : Form
     {
         int nowMemberId;
+        MainMenuForm mainForm;
         public RemoveMemberForm()
         {
+            InitializeComponent();
+        }
+        public RemoveMemberForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
             InitializeComponent();
         }
 
         private void RemoveMemberBtn_Click(object sender, EventArgs e)
         {
             SQLManager.RemoveMember(nowMemberId);
+            mainForm.ShowInMembersDataTable();
             this.Close();
         }
 
@@ -40,9 +50,9 @@ namespace GorselProgramlama_01
             }
             if (!isWrong)
             {
-                if (DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) != null)
+                if (DataBase.Members.Find(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) != null)
                 {
-                    MemberClass member = DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text));
+                    MemberClass member = DataBase.Members.Find(o => o.ID == Convert.ToInt32(MemberIdTxt.Text));
                     MemberIDTxtNew.Text = member.ID.ToString();
                     MemberNameTxt.Text = member.Name;
                     MemberMailTxt.Text = member.Mail;

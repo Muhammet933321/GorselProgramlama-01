@@ -21,9 +21,9 @@ namespace GorselProgramlama_01
 {
     public partial class MainMenuForm : Form
     {
-        private DataTable dtMembers;
-        private DataTable dtBooks;
-        private DataTable dtHires;
+        public DataTable dtMembers;
+        public DataTable dtBooks;
+        public DataTable dtHires;
         public MainMenuForm()
         {
             InitializeComponent();
@@ -65,6 +65,19 @@ namespace GorselProgramlama_01
                   member.Mail
                 });
         }
+        public void ShowInMembersDataTable()
+        {
+            dtMembers.Clear();
+            foreach (MemberClass member in DataBase.Members )
+            {
+                dtMembers.Rows.Add(new object[]
+                { member.ID,
+                  member.Name,
+                  member.Mail
+                });
+            }
+            
+        }
         public void ShowInBooksDataTable(BookClass book)
         {
             if (book.State == 0)
@@ -82,6 +95,28 @@ namespace GorselProgramlama_01
                   book.WriterName,
                   "Hired"});
         }
+        public void ShowInBooksDataTable()
+        {
+            dtBooks.Clear();
+            foreach (BookClass book in DataBase.Books)
+            {
+                if (book.State == 0)
+                    dtBooks.Rows.Add(new object[]
+                        { book.ID,
+                  book.BookName,
+                  book.NumberOfPages,
+                  book.WriterName,
+                  "In Library"});
+                if (book.State == 1)
+                    dtBooks.Rows.Add(new object[]
+                    { book.ID,
+                  book.BookName,
+                  book.NumberOfPages,
+                  book.WriterName,
+                  "Hired"});
+            }
+
+        }
         public void ShowInHiresDataTable(HiresClass hire)
         {
             string DateTime = $"{hire.HireTime.Day}.{hire.HireTime.Month}.{hire.HireTime.Year}";
@@ -92,6 +127,22 @@ namespace GorselProgramlama_01
                   DateTime,
                   ReturnTime});
         }
+        public void ShowInHiresDataTable()
+        {
+            dtHires.Clear();
+            foreach (HiresClass hire in DataBase.Hires)
+            {
+                string DateTime = $"{hire.HireTime.Day}.{hire.HireTime.Month}.{hire.HireTime.Year}";
+                string ReturnTime = $"{hire.ReturnTime.Day}.{hire.ReturnTime.Month}.{hire.ReturnTime.Year}";
+                dtHires.Rows.Add(new object[]
+                    { hire.UserId,
+                  hire.BookId,
+                  DateTime,
+                  ReturnTime});
+            }
+
+        }
+
 
         public void WriteAllDataFromJSON()
         {
@@ -238,19 +289,19 @@ namespace GorselProgramlama_01
 
         private void UyeEkle_Click(object sender, EventArgs e)
         {
-            AddMemberForm Form = new AddMemberForm();
+            AddMemberForm Form = new AddMemberForm(this);
             Form.Show();
         }
 
         private void KitapEkleBtn_Click(object sender, EventArgs e)
         {
-            AddBookForm form = new AddBookForm();
+            AddBookForm form = new AddBookForm(this);
             form.Show();
         }
 
         private void EmanetEkleBtn_Click(object sender, EventArgs e)
         {
-            HireManagerForm form = new HireManagerForm();
+            HireManagerForm form = new HireManagerForm(this);
             form.Show();
         }
 
@@ -275,36 +326,33 @@ namespace GorselProgramlama_01
 
         private void EditBookBtn_Click(object sender, EventArgs e)
         {
-            EditBookForm form = new EditBookForm();
+            EditBookForm form = new EditBookForm(this);
             form.Show();
         }
 
-        private void toolStripDropDownButton1_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void RemoveBookBtn_Click(object sender, EventArgs e)
         {
-            RemoveBookForm form = new RemoveBookForm();
+            RemoveBookForm form = new RemoveBookForm(this);
             form.Show();
         }
 
         private void EditMemberBtn_Click(object sender, EventArgs e)
         {
-            EditMemberForm form = new EditMemberForm();
+            EditMemberForm form = new EditMemberForm(this);
             form.Show();
         }
 
         private void RemoveMemberBtn_Click(object sender, EventArgs e)
         {
-            RemoveMemberForm form = new RemoveMemberForm();
+            RemoveMemberForm form = new RemoveMemberForm(this);
             form.Show();
         }
 
         private void ReturnBtn_Click(object sender, EventArgs e)
         {
-            ReturnBookForm form = new ReturnBookForm();
+            ReturnBookForm form = new ReturnBookForm(this);
             form.Show();
         }
     }

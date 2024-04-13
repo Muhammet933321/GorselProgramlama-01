@@ -44,6 +44,7 @@
             EditMemberBtn = new Button();
             ReturnBtn = new Button();
             toolStrip1.SuspendLayout();
+            
             ((System.ComponentModel.ISupportInitialize)BookDataTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)MemberDataTable).BeginInit();
             ((System.ComponentModel.ISupportInitialize)HireDataTable).BeginInit();
@@ -98,7 +99,6 @@
             toolStripDropDownButton1.Name = "toolStripDropDownButton1";
             toolStripDropDownButton1.Size = new Size(46, 24);
             toolStripDropDownButton1.Text = "File";
-            toolStripDropDownButton1.Click += toolStripDropDownButton1_Click;
             // 
             // loadDataToolStripMenuItem
             // 

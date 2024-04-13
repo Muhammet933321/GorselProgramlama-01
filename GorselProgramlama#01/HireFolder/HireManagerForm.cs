@@ -14,9 +14,17 @@ namespace GorselProgramlama_01
 
     public partial class HireManagerForm : Form
     {
-
+        MainMenuForm mainForm;
         public HireManagerForm()
         {
+            InitializeComponent();
+        }
+        public HireManagerForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
             InitializeComponent();
         }
 
@@ -46,19 +54,18 @@ namespace GorselProgramlama_01
             if (isntHaveError)
             {
                 
-                if (DataBase.Members.FirstOrDefault(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) != null)
+                if (DataBase.Members.Find(o => o.ID == Convert.ToInt32(MemberIdTxt.Text)) != null)
                 {
-                    if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
+                    if (DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
                     {
                         IsValuesTrue = true;
                         if (IsValuesTrue)
                         {
-                            if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State == 0)
+                            if (DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State == 0)
                             {
-                                DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
-
-                                DataBase.Hires.Add(hire);
+                                DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
                                 SQLManager.AddHire(hire);
+                                mainForm.ShowInHiresDataTable();
                                 this.Close();
                             }
                             else

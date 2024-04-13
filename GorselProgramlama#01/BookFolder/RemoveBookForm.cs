@@ -14,8 +14,17 @@ namespace GorselProgramlama_01
     public partial class RemoveBookForm : Form
     {
         int nowBookId;
+        MainMenuForm mainForm;
         public RemoveBookForm()
         {
+            InitializeComponent();
+        }
+        public RemoveBookForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
             InitializeComponent();
         }
 
@@ -33,9 +42,9 @@ namespace GorselProgramlama_01
             }
             if (!isWrong)
             {
-                if (DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
+                if (DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) != null)
                 {
-                    BookClass book = DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text));
+                    BookClass book = DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text));
                     BookNameTxtNew.Text = book.BookName;
                     BookWriterTxtNew.Text = book.WriterName;
                     NumberOfPagesTxtNew.Text = book.NumberOfPages.ToString();
@@ -56,6 +65,7 @@ namespace GorselProgramlama_01
         private void RemoveBookBtn_Click(object sender, EventArgs e)
         {
             SQLManager.RemoveBook(Convert.ToInt32(BookIdTxt.Text));
+            mainForm.ShowInBooksDataTable();
             this.Close();
         }
     }

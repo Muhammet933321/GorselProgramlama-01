@@ -11,7 +11,7 @@ namespace GorselProgramlama_01
         public static List<BookClass> Books = new List<BookClass>();
         public static List<MemberClass> Members = new List<MemberClass>();
         public static List<HiresClass> Hires = new List<HiresClass>();
-
+        
         public static void BookEdit(int ID,int newID, string name, string writer, int numberofpages)
         {
             var book = Books.Find(x => x.ID == ID);

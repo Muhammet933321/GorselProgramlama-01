@@ -14,10 +14,20 @@ namespace GorselProgramlama_01
 
     public partial class AddBookForm : Form
     {
-
+        MainMenuForm mainForm;
         public AddBookForm()
         {
             InitializeComponent();
+        }
+        public AddBookForm(MainMenuForm form)
+        {
+            if (form != null)
+            {
+                mainForm = form;
+            }
+            InitializeComponent();
+
+
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -52,11 +62,10 @@ namespace GorselProgramlama_01
             book.WriterName = WriterNameTxt.Text;
             if (isntHaveError)
             {
-                if (isntHaveError && DataBase.Books.FirstOrDefault(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) == null)
+                if (isntHaveError && DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)) == null)
                 {
-
-                    DataBase.Books.Add(book);
                     SQLManager.AddBook(book);
+                    mainForm.ShowInBooksDataTable();
                     this.Close();
 
                 }
