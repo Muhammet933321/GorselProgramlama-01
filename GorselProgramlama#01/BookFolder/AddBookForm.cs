@@ -35,7 +35,7 @@ namespace GorselProgramlama_01
 
         }
 
-        private void ogrenciEkleBtn_Click(object sender, EventArgs e)
+        private void AddBookBtn_Click(object sender, EventArgs e)
         {
             bool isntHaveError = true;
             int sayi;

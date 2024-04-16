@@ -79,7 +79,7 @@
             AddBookBtn.TabIndex = 6;
             AddBookBtn.Text = "Add";
             AddBookBtn.UseVisualStyleBackColor = true;
-            AddBookBtn.Click += ogrenciEkleBtn_Click;
+            AddBookBtn.Click += AddBookBtn_Click;
             // 
             // NumberOfPagesTxt
             // 
