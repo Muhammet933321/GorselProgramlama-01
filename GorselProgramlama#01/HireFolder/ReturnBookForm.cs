@@ -75,6 +75,7 @@ namespace GorselProgramlama_01
                 {
                     SQLManager.RemoveHire(sayi);
                     mainForm.ShowInHiresDataTable();
+                    mainForm.ShowInBooksDataTable();
                     this.Close();
                 }
                 else

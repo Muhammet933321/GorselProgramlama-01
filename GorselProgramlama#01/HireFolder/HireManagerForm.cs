@@ -65,6 +65,7 @@ namespace GorselProgramlama_01
                             {
                                 DataBase.Books.Find(o => o.ID == Convert.ToInt32(BookIdTxt.Text)).State = 1;
                                 SQLManager.AddHire(hire);
+                                mainForm.ShowInBooksDataTable();
                                 mainForm.ShowInHiresDataTable();
                                 this.Close();
                             }
